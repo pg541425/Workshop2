@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Registration Form</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        #messageBox {
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Register</h2>
+
+
+    <form id="registrationForm" action="#" method="POST">
+
+        <div id="messageBox"></div>
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+
+            event.preventDefault();
+
+
+            const mobile = document.getElementById('mobile').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const messageBox = document.getElementById('messageBox');
+
+            const mobileRegex = /^[0-9]{10}$/;
+            if (!mobileRegex.test(mobile)) {
+                messageBox.textContent = "Please enter a valid 10-digit mobile number.";
+                messageBox.className = "error";
+                messageBox.style.display = "block";
+                return; // Stop the function here
+            }
+
+            if (password.length < 6) {
+                messageBox.textContent = "Password must be at least 6 characters long.";
+                messageBox.className = "error";
+                messageBox.style.display = "block";
+                return; // Stop the function here
+            }
+
+            if (password !== confirmPassword) {
+                messageBox.textContent = "Passwords do not match. Please try again.";
+                messageBox.className = "error";
+                messageBox.style.display = "block";
+                return; // Stop the function here
+            }
+
+            messageBox.textContent = "Registration successful!";
+            messageBox.className = "success";
+            messageBox.style.display = "block";
+
+        });
+    </script>
+
+</body>
+</html>
