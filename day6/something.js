@@ -1,15 +1,20 @@
-//Rest Operator
-function sum(name, ...args){
+// Rest Operator
+function sum(name, ...args) {
     console.log(args);
-    let total=0;
-    for(let i of args){
-        total=total+i;
+    let total = 0;
+    for (let i of args) {
+        total = total + i;
     }
-    console.log("Hello "+name);
-    console.log("Total = "+total);
+    console.log("Hello " + name);
+    console.log("Total = " + total);
 }
 
-sum("Shivam", 10,20,30,40);
+sum("Shivam", 10, 20, 30, 40);
 
-//Spread Operator
+let input = prompt("Enter numbers separated by commas (e.g. 10,20,30): ");
 
+if (input) {
+    let numbers = input
+        .split(",")
+    sum("Shivam", ...numbers);
+}
