@@ -62,19 +62,32 @@
 // }, 2000);
 // console.log("End");
 
-//other Example
+// //other Example
 
-function printName(){
-    console.log("Shivam")
-}
-printName();
-console.log("Welcome");
+// function printName(){
+//     console.log("Shivam")
+// }
+// printName();
+// console.log("Welcome");
 
-function printName(){
-    setTimeout(()=>{
-        console.log("Shivam");
-    },2000);
-}
-printName();
+// function printName(){
+//     setTimeout(()=>{
+//         console.log("Shivam");
+//     },2000);
+// }
+// printName();
 
-console.log("Welcome");
+// console.log("Welcome");
+
+
+//Promise
+let complet=true;
+
+let prom=new Promise(function(resolve,reject){
+    if(complet){
+        resolve("I am true")
+    }else{
+        reject("I am not true")
+    }
+})
+console.log(prom)
