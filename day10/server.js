@@ -1,128 +1,26 @@
 const http = require('http');
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.end(`
-    <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Registration Form</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input {
-            padding: 8px;
-            width: 250px;
-        }
-        button {
-            padding: 10px 15px;
-            cursor: pointer;
-        }
 
-        #messageBox {
-            margin-bottom: 15px;
-            font-size: 14px;
-            display: none;
-        }
-        .error {
-            color: red;
-        }
-        .success {
-            color: green;
-        }
-    </style>
-</head>
-<body>
+const html = `<!DOCTYPE html>
+<form id="f" style="font-family:sans-serif;display:flex;flex-direction:column;gap:8px;max-width:260px">
+  <h3>Register Here</h3>
+  <div id="msg"></div>
+  <input name="name" placeholder="Name" required>
+  <input name="email" type="email" placeholder="Email" required>
+  <input name="mobile" pattern="\\d{10}" title="10-digit number" placeholder="Mobile" required>
+  <input name="pw" id="p1" type="password" minlength="6" placeholder="Password" required>
+  <input id="p2" type="password" placeholder="Confirm Password" required>
+  <button type="submit">Register</button>
+</form>
+<script>
+  f.onsubmit = e => {
+    e.preventDefault();
+    const ok = p1.value === p2.value;
+    msg.textContent = ok ? "Registration successful!" : "Passwords do not match.";
+    msg.style.color = ok ? "green" : "red";
+  };
+</script>`;
 
-    <h2>Register</h2>
-
-
-    <form id="registrationForm" action="#" method="POST">
-
-        <div id="messageBox"></div>
-
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-
-        <div class="form-group">
-            <label for="mobile">Mobile Number:</label>
-            <input type="tel" id="mobile" name="mobile" required>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <div class="form-group">
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
-        </div>
-
-        <button type="submit">Register</button>
-    </form>
-
-    <script>
-
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-
-            event.preventDefault();
-
-
-            const mobile = document.getElementById('mobile').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-            const messageBox = document.getElementById('messageBox');
-
-            const mobileRegex = /^[0-9]{10}$/;
-            if (!mobileRegex.test(mobile)) {
-                messageBox.textContent = "Please enter a valid 10-digit mobile number.";
-                messageBox.className = "error";
-                messageBox.style.display = "block";
-                return; // Stop the function here
-            }
-
-            if (password.length < 6) {
-                messageBox.textContent = "Password must be at least 6 characters long.";
-                messageBox.className = "error";
-                messageBox.style.display = "block";
-                return; // Stop the function here
-            }
-
-            if (password !== confirmPassword) {
-                messageBox.textContent = "Passwords do not match. Please try again.";
-                messageBox.className = "error";
-                messageBox.style.display = "block";
-                return; // Stop the function here
-            }
-
-            messageBox.textContent = "Registration successful!";
-            messageBox.className = "success";
-            messageBox.style.display = "block";
-
-        });
-    </script>
-
-</body>
-</html>
-`);
-});
-server.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end(html);
+}).listen(3000, () => console.log('Running on http://localhost:3000'));
