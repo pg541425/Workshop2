@@ -48,7 +48,6 @@
 //         console.log("Done")
 //     }
 // })
-
 fs.readFile("std.txt", "utf8", (err,data)=>{
     if(err){
         console.log("Error in reading file");
